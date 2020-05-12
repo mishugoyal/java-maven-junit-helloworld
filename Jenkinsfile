@@ -1,23 +1,14 @@
 pipeline {
-    agent any
     stages {
-        stage('Stage 1') {
+        stage('init') {
             steps {
-                echo 'Hello world!'
+                step([$class: 'WsCleanup'])
+                script {
+                    echo 'hello'
+                    sh '/appl/app/apache-maven-3.3.9/bin/mvn -B -V -U -e clean install'
+                }
             }
-        }
-        stage('install'){
-
-            sh '/appl/app/apache-maven-3.3.9/bin/mvn -B -V -U -e clean install'
-            echo "Succcessfully install"
-        }
-
-        stage('test'){
-            sh '/appl/app/apache-maven-3.3.9/bin/mvn -B -V -U -e clean test'
-            echo "Succcessfully test"
         }
     }
 }
-
-
   
